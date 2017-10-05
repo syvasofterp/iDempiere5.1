@@ -54,6 +54,10 @@
          id="org.idempiere.zk"
          version="0.0.0"/>
 
+   <includes
+         id="com.trekglobal.vaadin.update"
+         version="0.0.0"/>
+
    <plugin
          id="org.apache.taglibs.taglibs-standard-spec"
          download-size="0"
@@ -495,7 +499,7 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-         
+
    <plugin
          id="org.eclipse.jetty.http2.hpack"
          download-size="0"
@@ -509,5 +513,41 @@
          install-size="0"
          version="0.0.0"
          fragment="true"/>
+
+   <plugin
+         id="kanbanBoard"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.red1.chartmaker"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.syvasoft.tallyfront.theme"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="org.syvasoft.tallyfrontcrm"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.syvasoft.tallyfrontcrusher"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
 
 </feature>

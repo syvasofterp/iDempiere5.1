@@ -86,6 +86,7 @@
 		<extension>jnlp</extension>
 		<mime-type>application/x-java-jnlp-file</mime-type>
 	</mime-mapping>
+	<!-- 
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>admin</web-resource-name>
@@ -99,6 +100,7 @@
 			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
 		</user-data-constraint>
 	</security-constraint>
+	!-->
 	<welcome-file-list>
 		<welcome-file>idempiere.jsp</welcome-file>
 	</welcome-file-list>
