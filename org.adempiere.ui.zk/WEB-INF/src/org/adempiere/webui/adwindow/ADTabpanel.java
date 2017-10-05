@@ -1280,7 +1280,13 @@ DataStatusListener, IADTabpanel, IdSpace, IFieldEditorContainer
         		{
         			@SuppressWarnings("unchecked")
 					MTreeNode treeNode = ((DefaultTreeNode<MTreeNode>) item.getValue()).getData();        		
-            		if (treeNode.getNode_ID() == gridTab.getRecord_ID()){
+            		if (treeNode.getNode_ID() == gridTab.getRecord_ID()){            			            			
+            			//By syed to refresh Tree immediately after changing account group.
+            			treePanel.prepareForRefresh();
+            			int AD_Tree_ID = MTree.getDefaultAD_Tree_ID (Env.getAD_Client_ID(Env.getCtx()), gridTab.getKeyColumnName());
+            			treePanel.initTree(AD_Tree_ID, windowNo);
+            			//By syed.
+            			
             			setSelectedNode(gridTab.getRecord_ID());
             			refresh = false;
             		}
@@ -1303,11 +1309,14 @@ DataStatusListener, IADTabpanel, IdSpace, IFieldEditorContainer
             			if (treePanel.initTree(AD_Tree_ID, windowNo))
             				echoDeferSetSelectedNodeEvent();
             			else
-            				setSelectedNode(gridTab.getRecord_ID());
-            			
+            				setSelectedNode(gridTab.getRecord_ID());            			
             		}   
     				else
     				{
+    					//By Syed to add new node into right hierarchy
+    					//This change is done especially for Chart of Accounts.
+    					treePanel.prepareForRefresh();
+    					
     					AD_Tree_ID = MTree.getDefaultAD_Tree_ID (Env.getAD_Client_ID(Env.getCtx()), gridTab.getKeyColumnName());
     					treePanel.initTree(AD_Tree_ID, windowNo);
     				}
