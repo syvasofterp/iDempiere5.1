@@ -195,6 +195,17 @@ public class ADTreeOnDropListener implements EventListener<Event> {
 						.append(" WHERE AD_Tree_ID=").append(mTree.getAD_Tree_ID())
 						.append(" AND Node_ID=").append(md.getNode_ID());
 					if (log.isLoggable(Level.FINE)) log.fine(sql.toString());
+					DB.executeUpdateEx(sql.toString(),trx.getTrxName());					
+				}
+				
+				//By Syed to update Account Group ID into C_ElementValue Table for Chart of Accounts.
+				if(mTree.getNodeTableName().equals("AD_TreeNode")) {
+					StringBuilder sql = new StringBuilder("UPDATE ");
+					sql.append("C_ElementValue")
+					.append(" SET AccountGroup_ID=CASE WHEN ").append(newMParent.getNode_ID()).append(" = 0 THEN NULL ")
+					.append(" ELSE ").append(newMParent.getNode_ID()).append(" END " )
+					.append(" WHERE C_ElementValue_ID=").append(((MTreeNode) movingNode.getData()).getNode_ID());					
+					if (log.isLoggable(Level.FINE)) log.fine(sql.toString());
 					DB.executeUpdateEx(sql.toString(),trx.getTrxName());
 				}
 			}
