@@ -544,7 +544,7 @@
          unpack="false"/>
 
    <plugin
-         id="org.syvasoft.tallyfrontcrusher"
+         id="org.syvasoft.bluestonecrusher"
          download-size="0"
          install-size="0"
          version="0.0.0"
