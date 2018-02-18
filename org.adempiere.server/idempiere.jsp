@@ -24,13 +24,14 @@ Author URI: http://www.bmlaurus.com
 		<div id="toolBar" class="toolBar">
 			<div id="toolBar-title" class="toolBar-title">
 				<div id="credits" style="color:#336699;">
-					<%=Prop.getProperty(Prop.CREDITS_TXT)%>
+					
 				</div>
 				<div class="left_div" id="title">
 					<p><%=Prop.getProperty(Prop.CLIENT_NAME)%></p>
 				</div>
 			</div>
 			<div id="toolBar-tools" class="toolBar-tools">
+			<!-- 
 				<a href="<%=Prop.getProperty(Prop.OPTION_LINK)%>"  target="_blank">
 					<img name="img_option" src="<%=Prop.getImage("img_option.png")%>" border="0" title="<%=Prop.getProperty(Prop.OPTION_TEXT)%>"/>
 				</a>
@@ -40,11 +41,13 @@ Author URI: http://www.bmlaurus.com
 				<a id="ServerManagement" href="<%=Prop.getProperty(Prop.MONITOR_LINK)%>">
 					<img name="img_idempiereMonitor" src="<%=Prop.getImage("img_idempiereMonitor.png")%>" border="0" title="<%=Prop.getProperty(Prop.MONITOR_TEXT)%>"/>
 				</a>
+				-->
 			</div>
 		</div>
 		<div id ="main" class="main">
 			<div id="main-content" class="main-content">
 				<div id="main-topButtons">
+					<!--  
 					<div id="main-requestBtns" class="topBtnHeader">
 						<div id ="main-requestBtns-btnReq" class="topBtn">
 							<div class = "btnResoc-content">
@@ -79,8 +82,12 @@ Author URI: http://www.bmlaurus.com
 							</div>
 						</div>
 					</div>
+					-->
+				 
 				</div>
+				
 				<div id="main-rssContent">
+				<!-- 
 					<div id="rssfeed-wrap">
 						<script type="text/javascript">
 						<% if(Prop.isRssOn()) {
@@ -101,14 +108,18 @@ Author URI: http://www.bmlaurus.com
 							out.write("<p><a class=\"darklink\" href=\"javascript:newsfeed.init()\">"+Prop.getProperty(Prop.RSS_REFRESH)+"</a></p>");
 						%>
 					</div>
+					-->
+					Welcome to SKPCST <br/> Please visit later for more update!
 				</div>
+				
 				<div id="main-login" class="main-login">
 					<a href="<%=Prop.getProperty(Prop.WEBUI_LINK)%>" target="_self">
-						<img name="img_webui" src="<%=Prop.getImage("img_webui.png")%>" border="0" />
+						<img name="img_webui" src="<%=Prop.getImage("headertrans.png")%>" border="0" />
 					</a>
 				</div>
 				<div id="main-docuBtns">
 					<div id="main-docuBtns" class="topBtnFooter">
+					<!-- 
 						<div id ="main-docuBtns-btnIrc" class="bottomBtn">
 							<div class = "btnDocu-content">
 								<a href="<%=Prop.getProperty(Prop.IRC_LINK)%>" target="_blank">
@@ -141,6 +152,7 @@ Author URI: http://www.bmlaurus.com
 								<div class="main-txt-btn"><%=Prop.getProperty(Prop.SUPPORTREQUEST_TEXT)%></div>
 							</div>
 						</div>
+					-->
 					</div>
 				</div>
 				<div id="main-background">
@@ -148,7 +160,7 @@ Author URI: http://www.bmlaurus.com
 				</div>
 			</div>
 		</div>
-		<div id="foot" class="foot">
+		<div id="foot" class="foot">		 
 			<div id="socialBar" class="socialBar">
 				<%if(!Prop.getProperty(Prop.SOC_FACEBOOK).equals("") && !Prop.getProperty(Prop.SOC_FACEBOOK).equals("NONE")){%>
 					<a id="facebook" href="<%=Prop.getProperty(Prop.SOC_FACEBOOK)%>" target="_blank">
@@ -180,8 +192,9 @@ Author URI: http://www.bmlaurus.com
 					</a>
 				<%}%>
 			</div>
+			
 			<div id="footercopyright">
-				&copy; Copyright 2013-<%=Prop.getYear()%> iDempiere - All rights reserved - <a href="http://www.gnu.org/licenses/gpl-2.0.html" target="blank">iDempiere License is GPLv2</a>
+				&copy; Copyright 2013-<%=Prop.getYear()%> SKPCST - All rights reserved
 				<%=Prop.getProperty(Prop.COPYRIGHT_TXT)%>
 			</div>
 		</div>

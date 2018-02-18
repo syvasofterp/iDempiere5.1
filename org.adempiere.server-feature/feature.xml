@@ -515,13 +515,6 @@
          fragment="true"/>
 
    <plugin
-         id="kanbanBoard"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.red1.chartmaker"
          download-size="0"
          install-size="0"
@@ -548,6 +541,14 @@
          download-size="0"
          install-size="0"
          version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.syvasoft.dashboardpanel"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
          unpack="false"/>
 
 </feature>
