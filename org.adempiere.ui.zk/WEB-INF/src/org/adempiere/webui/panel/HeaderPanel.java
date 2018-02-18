@@ -98,9 +98,9 @@ public class HeaderPanel extends Panel implements EventListener<Event>
 		if (Events.ON_CLICK.equals(event.getName())) {
 			if(event.getTarget() == image)
 			{
-				AboutWindow w = new AboutWindow();
-				w.setPage(this.getPage());
-				w.doHighlighted();
+				//AboutWindow w = new AboutWindow();
+				//w.setPage(this.getPage());
+				//w.doHighlighted();
 			}
 			else if(event.getTarget() == btnMenu )
 			{
