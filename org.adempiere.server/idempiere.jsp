@@ -1,11 +1,5 @@
 <%@ page import="org.bmlaurus.home.Prop" %>
-<!--
-Theme Name: iDempiere Theme
-Version: 2.0
-Description: iDempiere Theme
-Author: BMLaurus
-Author URI: http://www.bmlaurus.com
--->
+
 <html>
 <% Prop.load(); %>
 <head>
