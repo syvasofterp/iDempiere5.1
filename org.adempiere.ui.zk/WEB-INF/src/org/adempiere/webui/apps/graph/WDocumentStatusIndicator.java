@@ -34,7 +34,9 @@ import org.adempiere.webui.component.Label;
 import org.adempiere.webui.component.Panel;
 import org.adempiere.webui.component.Window;
 import org.adempiere.webui.component.ZkCssHelper;
+import org.adempiere.webui.info.InfoWindow;
 import org.adempiere.webui.panel.ADForm;
+import org.adempiere.webui.panel.InfoPanel;
 import org.adempiere.webui.session.SessionManager;
 import org.compiere.model.MDocumentStatus;
 import org.compiere.model.MQuery;
@@ -145,6 +147,10 @@ public class WDocumentStatusIndicator extends Panel implements EventListener<Eve
 	{
 		int AD_Window_ID = m_documentStatus.getAD_Window_ID();
 		int AD_Form_ID = m_documentStatus.getAD_Form_ID();
+		
+		//Syed on 1/3/2018
+		int AD_InfoWindow_ID = m_documentStatus.get_ValueAsInt("AD_InfoWindow_ID");
+		
 		if (AD_Window_ID > 0)
 		{
 			MQuery query = new MQuery(m_documentStatus.getAD_Table_ID());
@@ -158,6 +164,11 @@ public class WDocumentStatusIndicator extends Panel implements EventListener<Eve
 			form.setAttribute(Window.MODE_KEY, Window.MODE_EMBEDDED);
 			SessionManager.getAppDesktop().showWindow(form);
 		}
+		else if(AD_InfoWindow_ID > 0) 
+		{
+			SessionManager.getAppDesktop().openInfo(AD_InfoWindow_ID);
+		}
+		
 		
 	}
 

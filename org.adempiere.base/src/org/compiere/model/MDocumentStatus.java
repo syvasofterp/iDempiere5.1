@@ -71,9 +71,12 @@ public class MDocumentStatus extends X_PA_DocumentStatus {
 				.setParameters(Env.getAD_Client_ID(ctx), AD_User_ID, AD_Role_ID)
 				.list();
 
-		/* Verify access for user/role */
+		/* Verify access for user/role */		
 		List<MDocumentStatus> listWithAccess = new ArrayList<MDocumentStatus>();
 		for (MDocumentStatus ds : list) {
+			//Syed on 1/3/2018
+			int AD_InfoWindow_ID = ds.get_ValueAsInt("AD_InfoWindow_ID");
+			
 			if (ds.getAD_Window_ID() > 0) {
 				Boolean access = MRole.getDefault().getWindowAccess(ds.getAD_Window_ID());
 				if (access != null)
@@ -83,6 +86,13 @@ public class MDocumentStatus extends X_PA_DocumentStatus {
 				if (access != null)
 					listWithAccess.add(ds);
 			}
+			//Syed on 1/3/2018
+			else if (AD_InfoWindow_ID > 0) {
+				Boolean access = MRole.getDefault().getInfoAccess(AD_InfoWindow_ID);
+				if (access != null)
+					listWithAccess.add(ds);
+			}
+			
 		}
 
 		MDocumentStatus[] retValue = new MDocumentStatus[listWithAccess.size ()];
