@@ -135,6 +135,8 @@ public class InfoWindow extends InfoPanel implements ValueChangeListener, EventL
 	private List<GridField> gridFields;
 	private Checkbox checkAND;
 	
+	private boolean m_QueryDataOnLoad = false;
+	
 	/**
 	 * Menu contail process menu item
 	 */
@@ -179,7 +181,11 @@ public class InfoWindow extends InfoPanel implements ValueChangeListener, EventL
 				lookup, AD_InfoWindow_ID);
 		this.m_gridfield = field;
 		this.queryValue = queryValue;
-
+		
+		//Syed on 1/3/2018
+		if(infoWindow != null)
+			this.m_QueryDataOnLoad = infoWindow.get_ValueAsBoolean("QueryDataOnLoad");
+		
    		//Xolali IDEMPIERE-1045
    		contentPanel.addActionListener(new EventListener<Event>() {
    			public void onEvent(Event event) throws Exception {
@@ -211,7 +217,12 @@ public class InfoWindow extends InfoPanel implements ValueChangeListener, EventL
 			{
 				prepareTable();
 				processQueryValue();
-			}			
+			}	
+			
+			//Syed on 1/3/2018
+			if(this.m_QueryDataOnLoad) {
+				onUserQuery();
+			}
 		}
 		
 	}
@@ -519,6 +530,8 @@ public class InfoWindow extends InfoPanel implements ValueChangeListener, EventL
 					p_whereClause = p_whereClause.replace(tableName+".", p_tableName+".");
 				}					
 			}
+		
+			
 			
 			infoColumns = infoWindow.getInfoColumns(tableInfos);
 		
