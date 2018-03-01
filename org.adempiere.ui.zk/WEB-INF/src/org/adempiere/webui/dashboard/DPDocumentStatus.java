@@ -51,6 +51,11 @@ public class DPDocumentStatus extends DashboardPanel {
 		statusPanel.updateUI();
 	}
 
+	@Override
+	public boolean isPooling() {
+		return true;		
+	}
+
 	public DPDocumentStatus()
 	{
 		super();
