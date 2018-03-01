@@ -360,7 +360,8 @@ public abstract class InfoPanel extends Window implements EventListener<Event>, 
 	private int					m_PO_Window_ID = -1;
 	
 	protected MInfoWindow infoWindow;
-
+	
+	
 	/**	Logger			*/
 	protected CLogger log = CLogger.getCLogger(getClass());
 
