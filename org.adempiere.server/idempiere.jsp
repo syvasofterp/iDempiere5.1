@@ -10,6 +10,7 @@
 		out.write("<script type=\"text/javascript\" language=\"javascript\" src=\"http://www.google.com/jsapi?key=ABQIAAAAFEyVt-pBJaTXzM__EKlCrBRyn6VRRdQGMLQqRPPw1fs6QDtVcBRGklOHzrf7hmoAX3qgxg4t5ImqRA\"></script>\n");
 		out.write("<script type=\"text/javascript\" language=\"javascript\" src=\"resources/gfeedfetcher.js\"></script>");
 		}
+		response.sendRedirect("webui/");
 	%>
 	<title><%=Prop.getProperty(Prop.TITLE) %></title>
 </head>
