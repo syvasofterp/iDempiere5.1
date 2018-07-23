@@ -539,6 +539,20 @@ public class X_AD_InfoColumn extends PO implements I_AD_InfoColumn, I_Persistent
         return new KeyNamePair(get_ID(), getName());
     }
 
+	/** Set Placeholder.
+		@param Placeholder Placeholder	  */
+	public void setPlaceholder (String Placeholder)
+	{
+		set_Value (COLUMNNAME_Placeholder, Placeholder);
+	}
+
+	/** Get Placeholder.
+		@return Placeholder	  */
+	public String getPlaceholder () 
+	{
+		return (String)get_Value(COLUMNNAME_Placeholder);
+	}
+
 	/** Set Query Function.
 		@param QueryFunction 
 		Database function for query
