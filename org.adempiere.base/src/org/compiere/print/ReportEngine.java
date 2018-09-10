@@ -636,9 +636,23 @@ queued-job-count = 0  (class javax.print.attribute.standard.QueuedJobCount)
 			else
 			{
 				XhtmlDocument doc = new XhtmlDocument();
+				String printHeaderDescription = m_printFormat.getDescription();
+					if (printHeaderDescription!=null && !printHeaderDescription.isEmpty()) { 
+						doc.appendHead("<h2><center>"+printHeaderDescription+"</center></h2>");
+					}
 				doc.getHtml().setNeedClosingTag(false);
 				doc.getBody().setNeedClosingTag(false);
 				doc.appendHead("<meta charset=\"UTF-8\" />");
+				StringBuilder params = new StringBuilder("<p>");
+				for (int r = 0; r < getQuery().getRestrictionCount(); r++) {					
+						params.append("<b>")
+						.append(getQuery().getInfoName(r))
+						.append("&nbsp;").append(getQuery().getInfoOperator(r)).append("&nbsp;")
+						.append(getQuery().getInfoDisplayAll(r))
+						.append("</b></br>");					
+				}
+				params.append("</p>");
+				doc.appendBody(params.toString());
 				doc.appendBody(table);
 				appendInlineCss (doc);
 				if (extension != null && extension.getStyleURL() != null)
