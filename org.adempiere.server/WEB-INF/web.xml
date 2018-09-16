@@ -102,6 +102,6 @@
 	</security-constraint>
 	 -->
 	<welcome-file-list>
-		<welcome-file>idempiere.jsp</welcome-file>
+		<welcome-file>skpcst.jsp</welcome-file>
 	</welcome-file-list>
 </web-app>
