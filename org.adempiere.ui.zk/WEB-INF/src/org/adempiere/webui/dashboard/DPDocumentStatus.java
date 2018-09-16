@@ -59,6 +59,11 @@ public class DPDocumentStatus extends DashboardPanel implements EventListener<Ev
 		statusPanel.updateUI();
 	}
 
+	@Override
+	public boolean isPooling() {
+		return true;		
+	}
+	
 	public DPDocumentStatus()
 	{
 		super();
