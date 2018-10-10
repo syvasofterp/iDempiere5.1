@@ -103,7 +103,7 @@
 						%>
 					</div>
 					-->
-					Welcome to SKPCST <br/> Please visit later for more update!
+					Welcome to LXMARK <br/> Please visit later for more update!
 				</div>
 				
 				<div id="main-login" class="main-login">
