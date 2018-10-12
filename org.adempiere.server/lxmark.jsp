@@ -188,7 +188,7 @@
 			</div>
 			
 			<div id="footercopyright">
-				&copy; Copyright 2013-<%=Prop.getYear()%> SKPCST - All rights reserved
+				&copy; Copyright 2013-<%=Prop.getYear()%> LXMARK - All rights reserved
 				<%=Prop.getProperty(Prop.COPYRIGHT_TXT)%>
 			</div>
 		</div>
