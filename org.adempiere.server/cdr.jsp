@@ -103,7 +103,7 @@
 						%>
 					</div>
 					-->
-					Welcome to LXMARK <br/> Please visit later for more update!
+					Welcome to CDR <br/> Please visit later for more update!
 				</div>
 				
 				<div id="main-login" class="main-login">
@@ -188,7 +188,7 @@
 			</div>
 			
 			<div id="footercopyright">
-				&copy; Copyright 2013-<%=Prop.getYear()%> LXMARK - All rights reserved
+				&copy; Copyright 2013-<%=Prop.getYear()%> CDR - All rights reserved
 				<%=Prop.getProperty(Prop.COPYRIGHT_TXT)%>
 			</div>
 		</div>
