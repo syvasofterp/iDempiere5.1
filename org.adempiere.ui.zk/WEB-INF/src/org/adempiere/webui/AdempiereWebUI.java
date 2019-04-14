@@ -29,6 +29,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.util.ServerContext;
 import org.adempiere.webui.apps.AEnv;
 import org.adempiere.webui.component.DrillCommand;
@@ -49,12 +50,14 @@ import org.compiere.model.MSystem;
 import org.compiere.model.MTable;
 import org.compiere.model.MUser;
 import org.compiere.model.MUserPreference;
+import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Language;
 import org.compiere.util.Msg;
 import org.compiere.util.Util;
+import org.syvasoft.model.MIllegalIPAccess;
 import org.zkforge.keylistener.Keylistener;
 import org.zkoss.web.Attributes;
 import org.zkoss.web.servlet.Servlets;
@@ -235,6 +238,34 @@ public class AdempiereWebUI extends Window implements EventListener<Event>, IWeb
 			mSession.saveEx();
 		}
 
+		String RemoteAddr=mSession.getRemote_Addr();
+		int AD_Org_ID=Env.getAD_Org_ID(ctx);
+		MUser IPAccessuser=new MUser(ctx,AD_Org_ID,null);
+		Boolean UAnyIPAccess=IPAccessuser.get_ValueAsBoolean("AnyIPAccess");
+		int AD_Role_ID=Env.getAD_Role_ID(ctx);
+		MRole role=new MRole(ctx,AD_Role_ID , null);
+		int AD_User_ID=IPAccessuser.getAD_User_ID();
+		Boolean RAnyIPAccess=role.get_ValueAsBoolean("AnyIPAccess");
+		String LOGIN_IP_ACCESS=MSysConfig.getValue("ENABLE_LOGIN_BY_IP_ACCESS");
+		if(LOGIN_IP_ACCESS.equals("Y") && Env.getAD_Client_ID(ctx)==1000000 && mSession.getAD_Session_ID()>0) {
+			if(!UAnyIPAccess) {
+				if(!RAnyIPAccess) {
+					String sql="SELECT COUNT(IPAddress) FROM FL_RoleIPAccess WHERE AD_Role_ID="+role.getAD_Role_ID()+" AND IPAddress='"+RemoteAddr+"' AND IsActive='Y'";
+					int count =	DB.getSQLValue(null, sql);
+					if(count==0) {
+						MIllegalIPAccess ip=new  MIllegalIPAccess(ctx, 0, null);
+						ip.setAD_Org_ID(AD_Org_ID);
+						ip.setAD_Role_ID(AD_Role_ID);
+						ip.setAD_User_ID(AD_User_ID);
+						ip.setIPAddress(RemoteAddr);
+						ip.saveEx();
+						throw new AdempiereException("You don't have a rights to login in the selected Role. Please use different role to login!");
+					}
+				}
+			}
+		}
+
+		
 		currSess.setAttribute("Check_AD_User_ID", Env.getAD_User_ID(ctx));
 
 		//enable full interface, relook into this when doing preference
