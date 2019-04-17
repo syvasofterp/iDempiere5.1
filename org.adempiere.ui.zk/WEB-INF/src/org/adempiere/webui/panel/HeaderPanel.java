@@ -25,6 +25,7 @@ import org.adempiere.webui.component.Panel;
 import org.adempiere.webui.theme.ThemeManager;
 import org.adempiere.webui.util.ZKUpdateUtil;
 import org.adempiere.webui.window.AboutWindow;
+import org.compiere.model.MSysConfig;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
 import org.compiere.util.Util;
@@ -111,9 +112,15 @@ public class HeaderPanel extends Panel implements EventListener<Event>
 		if (Events.ON_CLICK.equals(event.getName())) {
 			if(event.getTarget() == image)
 			{
-				AboutWindow w = new AboutWindow();
-				w.setPage(this.getPage());
-				w.doHighlighted();
+				//AboutWindow w = new AboutWindow();
+				//w.setPage(this.getPage());
+				//w.doHighlighted();
+				boolean show = MSysConfig.getBooleanValue("ZK_ABOUT_WINDOW_SHOW", false);
+				if(show) {
+					AboutWindow w = new AboutWindow();
+					w.setPage(this.getPage());
+					w.doHighlighted();
+				}
 			}
 			else if(event.getTarget() == btnMenu )
 			{
