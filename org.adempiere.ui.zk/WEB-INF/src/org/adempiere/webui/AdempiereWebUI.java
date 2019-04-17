@@ -246,7 +246,7 @@ public class AdempiereWebUI extends Window implements EventListener<Event>, IWeb
 		MRole role=new MRole(ctx,AD_Role_ID , null);
 		int AD_User_ID=IPAccessuser.getAD_User_ID();
 		Boolean RAnyIPAccess=role.get_ValueAsBoolean("AnyIPAccess");
-		String LOGIN_IP_ACCESS=MSysConfig.getValue("ENABLE_LOGIN_BY_IP_ACCESS");
+		String LOGIN_IP_ACCESS=MSysConfig.getValue("ENABLE_LOGIN_BY_IP_ACCESS","N");
 		if(LOGIN_IP_ACCESS.equals("Y") && Env.getAD_Client_ID(ctx)==1000000 && mSession.getAD_Session_ID()>0) {
 			if(!UAnyIPAccess) {
 				if(!RAnyIPAccess) {
