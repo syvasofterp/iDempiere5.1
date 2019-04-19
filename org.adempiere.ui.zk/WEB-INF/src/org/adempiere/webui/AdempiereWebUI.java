@@ -240,7 +240,7 @@ public class AdempiereWebUI extends Window implements EventListener<Event>, IWeb
 
 		String RemoteAddr=mSession.getRemote_Addr();
 		int AD_Org_ID=Env.getAD_Org_ID(ctx);
-		MUser IPAccessuser=new MUser(ctx,AD_Org_ID,null);
+		MUser IPAccessuser=new MUser(ctx,Env.getAD_User_ID(ctx),null);
 		Boolean UAnyIPAccess=IPAccessuser.get_ValueAsBoolean("AnyIPAccess");
 		int AD_Role_ID=Env.getAD_Role_ID(ctx);
 		MRole role=new MRole(ctx,AD_Role_ID , null);
