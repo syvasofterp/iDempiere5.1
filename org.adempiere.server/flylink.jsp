@@ -9,9 +9,9 @@ Author URI: http://www.bmlaurus.com
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">	
-	<title>Fly Link ERP</title>
+	<title>Fly Link</title>
 </head>
 <body>
-	<a href="webui/"><image src = "flylinkhome.jpeg"/></a>
+	<a href="webui/"><image style="width:100%" src = "flylinkhome.jpeg"/></a>
 </body>
 </html>
