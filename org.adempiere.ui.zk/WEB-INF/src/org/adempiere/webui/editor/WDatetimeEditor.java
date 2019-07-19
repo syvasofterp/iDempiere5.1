@@ -102,6 +102,7 @@ public class WDatetimeEditor extends WEditor implements ContextMenuListener
 		popupMenu = new WEditorPopupMenu(false, false, isShowPreference());
 		popupMenu.addMenuListener(this);
 		addChangeLogMenu(popupMenu);
+		getComponent().getTimebox().setFormat("HH:mm:ss");
 	}
 
 	public void onEvent(Event event)
