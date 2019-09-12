@@ -188,7 +188,7 @@
 			</div>
 			
 			<div id="footercopyright">
-				&copy; Copyright 2013-<%=Prop.getYear()%> CDR - All rights reserved
+				&copy; Copyright 2013-<%=Prop.getYear()%> GreyGranules.in - All rights reserved
 				<%=Prop.getProperty(Prop.COPYRIGHT_TXT)%>
 			</div>
 		</div>
