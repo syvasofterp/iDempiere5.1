@@ -103,12 +103,12 @@
 						%>
 					</div>
 					-->
-					Welcome to GreyGranules <br/> Please visit later for more update!
+					Welcome to MineCorp.in <br/> Please visit later for more update!
 				</div>
 				
 				<div id="main-login" class="main-login">
 					<a href="<%=Prop.getProperty(Prop.WEBUI_LINK)%>" target="_self">
-						<img name="img_webui" src="<%=Prop.getImage("headertrans.png")%>" border="0" />
+						<H1>Login</H1>
 					</a>
 				</div>
 				<div id="main-docuBtns">
@@ -188,7 +188,7 @@
 			</div>
 			
 			<div id="footercopyright">
-				&copy; Copyright 2013-<%=Prop.getYear()%> CDR - All rights reserved
+				&copy; Copyright 2013-<%=Prop.getYear()%> MineCorp.in - All rights reserved
 				<%=Prop.getProperty(Prop.COPYRIGHT_TXT)%>
 			</div>
 		</div>
