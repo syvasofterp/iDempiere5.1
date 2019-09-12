@@ -102,6 +102,6 @@
 	</security-constraint>
 	 -->
 	<welcome-file-list>
-		<welcome-file>greygranules.jsp</welcome-file>
+		<welcome-file>minecorp.jsp</welcome-file>
 	</welcome-file-list>
 </web-app>
