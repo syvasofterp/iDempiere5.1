@@ -40,45 +40,7 @@
 		</div>
 		<div id ="main" class="main">
 			<div id="main-content" class="main-content">
-				<div id="main-topButtons">
-					<!--  
-					<div id="main-requestBtns" class="topBtnHeader">
-						<div id ="main-requestBtns-btnReq" class="topBtn">
-							<div class = "btnResoc-content">
-								<a href="<%=Prop.getProperty(Prop.SUPPORT_LINK)%>" target="_blank">
-									<img name="img_locsupport" src="<%=Prop.getImage("img_locsupport.png")%>" border="0" title="<%=Prop.getProperty(Prop.LOCAL_TEXT)%>"/>
-								</a>
-								<div class="main-txt-btn"><%=Prop.getProperty(Prop.LOCAL_TEXT)%></div>
-							</div>
-						</div>
-						<div id ="main-requestBtns-btnSendReq" class="topBtn">
-							<div class = "btnResoc-content">
-								<a href="<%=Prop.getProperty(Prop.RESOURCE_LINK)%>" target="_blank">
-									<img name="img_resource" src="<%=Prop.getImage("img_resource.png")%>" border="0" title="<%=Prop.getProperty(Prop.RESOURCE_TEXT)%>"/>
-								</a>
-								<div class="main-txt-btn"><%=Prop.getProperty(Prop.RESOURCE_TEXT)%></div>
-							</div>
-						</div>
-						<div id ="main-requestBtns-btnLocSupp" class="topBtn">
-							<div class = "btnResoc-content">
-								<a href="<%=Prop.getProperty(Prop.WEBSTORE_LINK)%>" target="_blank">
-									<img name="img_webstore" src="<%=Prop.getImage("img_webstore.png")%>" border="0" title="<%=Prop.getProperty(Prop.WEBSTORE_TEXT)%>"/>
-								</a>
-								<div class="main-txt-btn"><%=Prop.getProperty(Prop.WEBSTORE_TEXT)%></div>
-							</div>
-						</div>
-						<div id ="main-requestBtns-btnResoc" class="topBtn">
-							<div class = "btnResoc-content">
-								<a href="<%=Prop.getProperty(Prop.SENDREQUEST_LINK)%>" target="_blank">
-									<img name="img_sendreq" src="<%=Prop.getImage("img_sendreq.png")%>" border="0" title="<%=Prop.getProperty(Prop.SENDREQUEST_TEXT)%>"/>
-								</a>
-								<div class="main-txt-btn"><%=Prop.getProperty(Prop.SENDREQUEST_TEXT)%></div>
-							</div>
-						</div>
-					</div>
-					-->
-				 
-				</div>
+				
 				
 				<div id="main-rssContent">
 				<!-- 
@@ -103,7 +65,7 @@
 						%>
 					</div>
 					-->
-					Welcome to CDR <br/> Please visit later for more update!
+					Welcome to GreyGranules <br/> Please visit later for more update!
 				</div>
 				
 				<div id="main-login" class="main-login">
