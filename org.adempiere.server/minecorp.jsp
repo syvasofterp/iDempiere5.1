@@ -103,7 +103,7 @@
 						%>
 					</div>
 					-->
-					Welcome to MineCorp.in <br/> Please visit later for more update!
+					Welcome to K. Rajashekar Crusher <br/> Please visit later for more update!
 				</div>
 				
 				<div id="main-login" class="main-login">
@@ -188,7 +188,7 @@
 			</div>
 			
 			<div id="footercopyright">
-				&copy; Copyright 2013-<%=Prop.getYear()%> MineCorp.in - All rights reserved
+				&copy; Copyright 2013-<%=Prop.getYear()%> All rights reserved
 				<%=Prop.getProperty(Prop.COPYRIGHT_TXT)%>
 			</div>
 		</div>
