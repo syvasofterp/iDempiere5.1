@@ -103,10 +103,10 @@
 						%>
 					</div>
 					-->
-					Welcome to K. Rajashekar Crusher <br/> Please visit later for more update!
+					Welcome to SVS Bluemetals <br/> Please visit later for more update!
 				</div>
 				
-				<div id="main-login" class="main-login">
+				<div id="main-login" class="main-login" style="display:none">
 					<a href="<%=Prop.getProperty(Prop.WEBUI_LINK)%>" target="_self">
 						<H1>Login</H1>
 					</a>
