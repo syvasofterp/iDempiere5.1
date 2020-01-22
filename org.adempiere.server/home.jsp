@@ -103,7 +103,7 @@
 						%>
 					</div>
 					-->
-					Welcome to SVS Bluemetals <br/> Please visit later for more update!
+					Welcome to MK Metals & Minerals <br/> Please visit later for more update!
 				</div>
 				
 				<div id="main-login" class="main-login" style="display:none">
