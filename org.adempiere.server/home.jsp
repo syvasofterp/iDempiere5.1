@@ -103,7 +103,7 @@
 						%>
 					</div>
 					-->
-					Welcome to MK Metals & Minerals <br/> Please visit later for more update!
+					Welcome to Namakkal Blue Metals<br/> Please visit later for more update!
 				</div>
 				
 				<div id="main-login" class="main-login" style="display:none">
