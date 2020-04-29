@@ -6,6 +6,9 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<link rel="stylesheet" href="<%=Prop.loadCss()%>">
 	<script type="text/javascript" src="resources/jquery/jquery.js"></script>
+	<script type="text/javascript" >
+	document.location.href='webui/';
+	</script>
 	<% if(Prop.isRssOn()){ 
 		out.write("<script type=\"text/javascript\" language=\"javascript\" src=\"http://www.google.com/jsapi?key=ABQIAAAAFEyVt-pBJaTXzM__EKlCrBRyn6VRRdQGMLQqRPPw1fs6QDtVcBRGklOHzrf7hmoAX3qgxg4t5ImqRA\"></script>\n");
 		out.write("<script type=\"text/javascript\" language=\"javascript\" src=\"resources/gfeedfetcher.js\"></script>");
