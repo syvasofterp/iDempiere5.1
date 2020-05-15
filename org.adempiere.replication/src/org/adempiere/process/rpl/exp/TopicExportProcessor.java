@@ -186,8 +186,10 @@ public class TopicExportProcessor implements IExportProcessor {
 			//producer.send(someDestination, message);
 			//producer.send(anotherDestination, message);
 			
+			
 			// Create a message
 			TextMessage message = session.createTextMessage( msg );
+			log.fine(msg);
 			
 			// Tell the producer to send the message
 			try
