@@ -2368,6 +2368,15 @@ public abstract class PO
 	public void saveReplica (boolean isFromReplication) throws AdempiereException
 	{
 		setReplication(isFromReplication);
+		if(m_isReplication) {
+			for (int i = 0; i < m_setErrors.length; i++) {
+				ValueNamePair setError = m_setErrors[i];
+				//Suppressting Column not updateable error for replication scenario
+				if (setError != null && setError.getValue().equals("ColumnReadonly")) {
+					m_setErrors[i] = null;					
+				}
+			}
+		}
 		saveEx();
 	}
 
@@ -4620,6 +4629,11 @@ public abstract class PO
 		m_isReplication = isFromReplication;
 	}
 
+	public void setCreateNew(boolean isCreateNew)
+	{
+		m_createNew = isCreateNew;
+	}
+	
 	public boolean isReplication()
 	{
 		return m_isReplication;
