@@ -426,7 +426,8 @@ public class ExportHelper {
 				if(formatLine.getAD_Reference_ID()== DisplayType.Table || formatLine.getAD_Reference_ID()==DisplayType.Search)
 				{
 					MColumn column = MColumn.get(masterPO.getCtx(), formatLine.getAD_Column_ID());
-					columnName = column.getColumnName();
+					//columnName = column.getColumnName();
+					columnName = column.getColumnName() + "_ID";
 				}
 				else
 				{
