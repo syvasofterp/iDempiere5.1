@@ -165,6 +165,10 @@ public class ImportHelper {
 		}
 		if (log.isLoggable(Level.INFO)) log.info("expFormat = " + expFormat.toString());
 		isChanged = false;
+		if(ModelValidator.TYPE_BEFORE_DELETE == ReplicationEvent						
+		    			||	ModelValidator.TYPE_BEFORE_DELETE_REPLICATION == ReplicationEvent 
+		    			||	ModelValidator.TYPE_DELETE == ReplicationEvent)
+		isChanged = true;		
 		PO po = importElement(ctx, result, rootElement, expFormat, ReplicationType, trxName);
 		if(!po.is_Changed() && !isChanged)
 		{
@@ -201,8 +205,13 @@ public class ImportHelper {
         				else if(X_AD_ReplicationTable.REPLICATIONTYPE_Merge.equals(ReplicationType)
         					||  X_AD_ReplicationTable.REPLICATIONTYPE_Reference.equals(ReplicationType))
         				{
-
-        						po.saveReplica(true);
+        					if(ModelValidator.TYPE_BEFORE_CHANGE == ReplicationEvent
+	       							|| ModelValidator.TYPE_CHANGE == ReplicationEvent
+	       							|| ModelValidator.CHANGETYPE_CHANGE == ReplicationEvent
+	       							|| ModelValidator.TYPE_AFTER_CHANGE == ReplicationEvent
+	       							|| ModelValidator.TYPE_AFTER_CHANGE_REPLICATION == ReplicationEvent)
+	      						po.setCreateNew(false);
+    						po.saveReplica(true);
         				}
         				/*else if (X_AD_ReplicationTable.REPLICATIONTYPE_Reference.equals(ReplicationType))
         				{
