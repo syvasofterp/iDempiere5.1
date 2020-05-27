@@ -442,6 +442,7 @@ public class ExportHelper {
 
 				/// removed setClient_ID() condition
 				Collection<PO> instances = new Query(masterPO.getCtx(),tableEmbedded.getTableName(), whereClause.toString(),masterPO.get_TrxName())
+												.setClient_ID(false)
                                 				.setParameters(value)
                                 				.list();
 
