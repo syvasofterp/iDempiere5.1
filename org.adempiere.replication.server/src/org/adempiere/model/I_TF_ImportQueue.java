@@ -32,7 +32,7 @@ public interface I_TF_ImportQueue
     /** TableName=TF_ImportQueue */
     public static final String Table_Name = "TF_ImportQueue";
 
-    /** AD_Table_ID=1000293 */
+    /** AD_Table_ID=1000292 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
@@ -152,6 +152,15 @@ public interface I_TF_ImportQueue
 	  */
 	public String getMessage();
 
+    /** Column name Processing */
+    public static final String COLUMNNAME_Processing = "Processing";
+
+	/** Set Process Now	  */
+	public void setProcessing (boolean Processing);
+
+	/** Get Process Now	  */
+	public boolean isProcessing();
+
     /** Column name Record_ID */
     public static final String COLUMNNAME_Record_ID = "Record_ID";
 
@@ -182,6 +191,15 @@ public interface I_TF_ImportQueue
 
 	/** Get TF_ImportQueue_UU	  */
 	public String getTF_ImportQueue_UU();
+
+    /** Column name UnderProcess */
+    public static final String COLUMNNAME_UnderProcess = "UnderProcess";
+
+	/** Set Under Process	  */
+	public void setUnderProcess (boolean UnderProcess);
+
+	/** Get Under Process	  */
+	public boolean isUnderProcess();
 
     /** Column name Updated */
     public static final String COLUMNNAME_Updated = "Updated";
