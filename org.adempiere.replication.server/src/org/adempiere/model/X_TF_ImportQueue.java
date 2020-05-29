@@ -30,7 +30,7 @@ public class X_TF_ImportQueue extends PO implements I_TF_ImportQueue, I_Persiste
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20200528L;
+	private static final long serialVersionUID = 20200529L;
 
     /** Standard Constructor */
     public X_TF_ImportQueue (Properties ctx, int TF_ImportQueue_ID, String trxName)
@@ -177,6 +177,27 @@ public class X_TF_ImportQueue extends PO implements I_TF_ImportQueue, I_Persiste
 		return (String)get_Value(COLUMNNAME_Message);
 	}
 
+	/** Set Process Now.
+		@param Processing Process Now	  */
+	public void setProcessing (boolean Processing)
+	{
+		set_Value (COLUMNNAME_Processing, Boolean.valueOf(Processing));
+	}
+
+	/** Get Process Now.
+		@return Process Now	  */
+	public boolean isProcessing () 
+	{
+		Object oo = get_Value(COLUMNNAME_Processing);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
 	/** Set Record ID.
 		@param Record_ID 
 		Direct internal record ID
@@ -232,5 +253,26 @@ public class X_TF_ImportQueue extends PO implements I_TF_ImportQueue, I_Persiste
 	public String getTF_ImportQueue_UU () 
 	{
 		return (String)get_Value(COLUMNNAME_TF_ImportQueue_UU);
+	}
+
+	/** Set Under Process.
+		@param UnderProcess Under Process	  */
+	public void setUnderProcess (boolean UnderProcess)
+	{
+		set_Value (COLUMNNAME_UnderProcess, Boolean.valueOf(UnderProcess));
+	}
+
+	/** Get Under Process.
+		@return Under Process	  */
+	public boolean isUnderProcess () 
+	{
+		Object oo = get_Value(COLUMNNAME_UnderProcess);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
 	}
 }

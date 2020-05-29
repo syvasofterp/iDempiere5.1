@@ -427,7 +427,10 @@ public class ExportHelper {
 				{
 					MColumn column = MColumn.get(masterPO.getCtx(), formatLine.getAD_Column_ID());
 					//columnName = column.getColumnName();
-					columnName = column.getColumnName() + "_ID";
+					if(column.getColumnName().contains("_ID"))
+						columnName = column.getColumnName();
+					else
+						columnName = column.getColumnName() + "_ID";
 				}
 				else
 				{
