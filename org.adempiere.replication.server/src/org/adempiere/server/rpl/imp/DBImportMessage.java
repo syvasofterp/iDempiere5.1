@@ -24,12 +24,14 @@ public class DBImportMessage extends SvrProcess {
 			impHelper.importXMLDocument(result, documentToBeImported, get_TrxName() );
 			imp.setissync(true);
 			imp.setLog(result.toString());
+			imp.saveEx();
 		}
 		catch (Exception e) {
 			imp.setLog(e.getMessage());
-			imp.setIsError(true);				
+			imp.setIsError(true);
+			imp.saveEx();
 		}
-		imp.saveEx();
+		
 		return null;
 	}
 
