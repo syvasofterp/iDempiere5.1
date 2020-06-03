@@ -237,11 +237,12 @@ public class ImportHelper {
 				   String status = document.getDocStatus();
 				   if (log.isLoggable(Level.INFO)) log.info("Document:"+document.toString() + " DocStauts:" + status + " DocAction:"+action);
 				   
+				   po.setReplication(true);
 				   if(ModelValidator.TIMING_AFTER_REVERSECORRECT==ReplicationEvent)
 				   {   
 					   if(status.equals(DocAction.STATUS_Reversed) && action.equals(DocAction.ACTION_None))
 					   {
-						   po.saveEx();
+						   po.saveReplica(true);
 						   return;
 					   }
 				   }	 
@@ -253,11 +254,11 @@ public class ImportHelper {
 					   {    
 					       if (log.isLoggable(Level.INFO)) log.info("PO.toString() = can not " + po.get_Value("DocAction"));
 					   }
-					   po.saveEx();
+					   po.saveReplica(true);
 				   }
 				   else
 				   {
-						 po.saveEx();
+						 po.saveReplica(true);
 						   return;
 				   }
 		    }	
