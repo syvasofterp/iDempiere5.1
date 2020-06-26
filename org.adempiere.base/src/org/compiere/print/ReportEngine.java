@@ -644,8 +644,9 @@ queued-job-count = 0  (class javax.print.attribute.standard.QueuedJobCount)
 				doc.getBody().setNeedClosingTag(false);
 				doc.appendHead("<meta charset=\"UTF-8\" />");
 				StringBuilder params = new StringBuilder("<p>");
-				for (int r = 0; r < getQuery().getRestrictionCount(); r++) {					
-						params.append("<b>")
+				for (int r = 0; r < getQuery().getRestrictionCount(); r++) {
+					if(getQuery().getInfoName(r) != null)
+						params.append("<b>")						
 						.append(getQuery().getInfoName(r))
 						.append("&nbsp;").append(getQuery().getInfoOperator(r)).append("&nbsp;")
 						.append(getQuery().getInfoDisplayAll(r))
