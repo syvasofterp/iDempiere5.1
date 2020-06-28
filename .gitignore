@@ -10,6 +10,7 @@
 /Oracle/
 /log/
 /*.log
+**/*.jar
 /idempiere.properties
 /idempiereEnv.properties
 /hazelcast.xml
