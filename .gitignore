@@ -8,6 +8,7 @@
 **/*.zip
 *.zip
 *.rar
+**/*.class
 /targetPlatform/
 /.metadata/
 /PostgreSQL/
