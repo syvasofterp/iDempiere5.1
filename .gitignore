@@ -4,6 +4,11 @@
 /org.adempiere.ui.zk/labelapplet.jar
 /org.adempiere.extend/test.properties
 
+**/bin/
+**/*.zip
+*.zip
+*.rar
+**/*.class
 /targetPlatform/
 /.metadata/
 /PostgreSQL/
