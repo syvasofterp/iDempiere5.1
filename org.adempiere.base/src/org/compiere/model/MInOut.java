@@ -1024,13 +1024,15 @@ public class MInOut extends X_M_InOut implements DocAction
             return false;
         }
 
+        /*
 		//	Shipment - Needs Order/RMA
 		if (!getMovementType().contentEquals(MInOut.MOVEMENTTYPE_CustomerReturns) && isSOTrx() && getC_Order_ID() == 0 && getM_RMA_ID() == 0)
 		{
 			log.saveError("FillMandatory", Msg.translate(getCtx(), "C_Order_ID"));
 			return false;
 		}
-
+         */
+        
         if (isSOTrx() && getM_RMA_ID() != 0)
         {
             // Set Document and Movement type for this Receipt

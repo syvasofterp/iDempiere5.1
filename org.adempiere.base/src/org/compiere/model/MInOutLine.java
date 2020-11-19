@@ -544,6 +544,7 @@ public class MInOutLine extends X_M_InOutLine
 		if (newRecord || is_ValueChanged("MovementQty"))
 			setMovementQty(getMovementQty());
 
+		/*
 		//	Order/RMA Line
 		if (getC_OrderLine_ID() == 0 && getM_RMALine_ID() == 0)
 		{
@@ -553,7 +554,8 @@ public class MInOutLine extends X_M_InOutLine
 				return false;
 			}
 		}
-
+		 */
+		
 		// Validate Locator/Warehouse - teo_sarca, BF [ 2784194 ]
 		if (getM_Locator_ID() > 0)
 		{
