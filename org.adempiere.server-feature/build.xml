@@ -3,7 +3,7 @@
 <!-- ====================================================== -->
 <!-- $Header: org.adempiere.server-feature/build.xml $-->
 
-<project name="setup" default="setup" basedir=".">
+<project name="setup" default="setup" basedir="file:/D:\syvasofterp5.1/dev51/">
 
 	<description>
 	This buildfile is used to setup the idempiere Environment.
