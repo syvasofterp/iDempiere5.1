@@ -26,7 +26,9 @@ public class MChart extends X_AD_Chart {
 	public List<MChartDatasource> getDatasources() {
 		
 		return new Query(getCtx(), MChartDatasource.Table_Name, MChart.COLUMNNAME_AD_Chart_ID + "=?", null)
-		.setParameters(getAD_Chart_ID()).setOnlyActiveRecords(true).list();
+		.setParameters(getAD_Chart_ID()).setOnlyActiveRecords(true)
+		.setOrderBy("AD_ChartDatasource_ID")
+		.list();
 	}
 	
 	public void setWindowNo(int windowNo) {

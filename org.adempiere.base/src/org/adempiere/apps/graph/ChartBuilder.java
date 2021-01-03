@@ -37,6 +37,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
@@ -456,14 +457,21 @@ public class ChartBuilder {
 	private JFreeChart createPieChart() {
 		final JFreeChart chart = ChartFactory.createPieChart(chartModel.get_Translation(MChart.COLUMNNAME_Name),
 				getPieDataset(), false, true, true);
-	
+		
+		PiePlot plot = (PiePlot) chart.getPlot();
+		plot.setSectionPaint("Green", Color.GREEN);
+		plot.setSectionPaint("Yellow", Color.YELLOW);
+		plot.setSectionPaint("Red", Color.RED);
+		plot.setBackgroundPaint(Color.WHITE);
+		plot.setOutlinePaint(null);
+		
 		return chart;
 	}
 
 	private JFreeChart create3DPieChart() {
 		final JFreeChart chart = ChartFactory.createPieChart3D(chartModel.get_Translation(MChart.COLUMNNAME_Name),
 				getPieDataset(), false, true, true);
-	
+		
 		return chart;
 	}
 
@@ -628,10 +636,10 @@ public class ChartBuilder {
 	    xAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45);
 	
 	    CategoryItemRenderer renderer = plot.getRenderer();
-	    renderer.setSeriesPaint(0, Color.RED);
-		renderer.setSeriesPaint(1, Color.BLUE);
-		renderer.setSeriesPaint(2, Color.YELLOW);
-		renderer.setSeriesPaint(3, Color.GREEN);
+	    renderer.setSeriesPaint(0, Color.GREEN);
+	    renderer.setSeriesPaint(1, Color.YELLOW);
+	    renderer.setSeriesPaint(2, Color.RED);
+		renderer.setSeriesPaint(3, Color.BLUE);
 		renderer.setSeriesPaint(4, Color.ORANGE);
 		renderer.setSeriesPaint(5, Color.CYAN);
 		renderer.setSeriesPaint(6, Color.MAGENTA);
