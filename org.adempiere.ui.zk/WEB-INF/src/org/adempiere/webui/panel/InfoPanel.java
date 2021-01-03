@@ -1964,7 +1964,7 @@ public abstract class InfoPanel extends Window implements EventListener<Event>, 
 						enableButtons();
 					}else if (!m_pi.isError()){
 						ProcessInfoDialog.showProcessInfo(m_pi, p_WindowNo, InfoPanel.this, true);	
-						isRequeryByRunSuccessProcess = true;
+						isRequeryByRunSuccessProcess = true;						
 						Clients.response(new AuEcho(InfoPanel.this, "onQueryCallback", null));
 					}
 					
@@ -2025,7 +2025,7 @@ public abstract class InfoPanel extends Window implements EventListener<Event>, 
     		
             renderItems();            
         	// IDEMPIERE-1334 after refresh, restore prev selected item start         	
-        	// just evaluate display logic of process button when requery by use click requery button
+        	// just evaluate display logic of process button when requery by use click requery button            
         	if (isQueryByUser){
         		bindInfoProcess();
         		// reset selected list
@@ -2033,6 +2033,7 @@ public abstract class InfoPanel extends Window implements EventListener<Event>, 
                 isRequeryByRunSuccessProcess = false;
         	}
         	if (isRequeryByRunSuccessProcess){
+        		recordSelectedData.clear(); // added by syed to clear selection after running the process.
         		syncSelectedAfterRequery();
         		restoreSelectedInPage();
         	}
