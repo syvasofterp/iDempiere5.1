@@ -29,6 +29,26 @@ public class MChartDatasource extends X_AD_ChartDatasource {
 	}
 
 
+	 /** Column name Color */
+    public static final String COLUMNNAME_Color = "Color";
+    
+	/** Set Color.
+	@param Color 
+	Optional short description of the record
+  */
+	public void setColor (String Color)
+	{
+		set_Value (COLUMNNAME_Color, Color);
+	}
+	
+	/** Get Color.
+		@return Optional Color of the record
+	  */
+	public String getColor () 
+	{
+		return (String)get_Value(COLUMNNAME_Color);
+	}
+	
 	/**
 	 * Convert date formatted as yyyy-MM to yyyy-QQ
 	 * @param month

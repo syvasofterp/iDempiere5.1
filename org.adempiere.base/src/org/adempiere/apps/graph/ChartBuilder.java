@@ -58,6 +58,8 @@ import org.jfree.data.time.Week;
 import org.jfree.data.time.Year;
 import org.jfree.data.xy.IntervalXYDataset;
 
+import sun.swing.MenuItemLayoutHelper.ColumnAlignment;
+
 /**
  * @author Paul Bowden, Adaxa Pty Ltd 
  * @author hengsin
@@ -646,6 +648,141 @@ public class ChartBuilder {
 		renderer.setSeriesPaint(7, Color.GRAY);
 		renderer.setSeriesPaint(8, Color.PINK);
 		
-		plot.setRenderer(renderer);
+		CategoryDataset coloumn = plot.getDataset();
+		
+		int i = 0;
+		for ( MChartDatasource ds : chartModel.getDatasources())
+		{
+			if(ds.getColor() != null && ds.getColor().trim() != "") {
+				if(RecordCount(ds) > 0){
+					renderer.setSeriesPaint(i, Color.decode(ds.getColor()));
+					i++;
+				}
+			}
+		}
+		
+		plot.setRenderer(renderer);		
+	}
+	
+	public int RecordCount(MChartDatasource ds)
+	{
+		String value = ds.getValueColumn();
+		String category;
+		String unit = "D";
+		int rowcount = 0;
+		
+		if ( !chartModel.isTimeSeries() )
+			category = ds.getCategoryColumn();
+		else 
+		{
+			if ( chartModel.getTimeUnit().equals(MChart.TIMEUNIT_Week))
+			{
+				unit = "W";
+			}
+			else if ( chartModel.getTimeUnit().equals(MChart.TIMEUNIT_Month))
+			{
+				unit = "MM";
+			}
+			else if ( chartModel.getTimeUnit().equals(MChart.TIMEUNIT_Quarter))
+			{
+					unit = "Q";
+			}
+			else if ( chartModel.getTimeUnit().equals(MChart.TIMEUNIT_Year))
+			{
+						unit = "Y";
+			}
+			
+			category = " TRUNC(" + ds.getDateColumn() + ", '" + unit + "') ";
+		}
+		
+		String series = DB.TO_STRING(ds.getName());
+		boolean hasSeries = false;
+		if (ds.getSeriesColumn() != null)
+		{
+			series = ds.getSeriesColumn();
+			hasSeries = true;
+		}
+		
+		String where = ds.getWhereClause();
+		if ( !Util.isEmpty(where))
+		{
+			where = Env.parseContext(Env.getCtx(), chartModel.getWindowNo(), where, true);
+		}
+		
+		boolean hasWhere = false;
+		
+		String sql = "SELECT " + value + ", " + category  + ", " + series
+		+ " FROM " + ds.getFromClause();
+		if ( !Util.isEmpty(where))
+		{
+			sql += " WHERE " + where;
+			hasWhere = true;
+		}
+		
+		Date currentDate = Env.getContextAsDate(Env.getCtx(), "#Date");
+		Date startDate = null;
+		Date endDate = null;
+		
+		int scope = chartModel.getTimeScope();
+		int offset = ds.getTimeOffset();
+		
+		if ( chartModel.isTimeSeries() && scope != 0 )
+		{
+			offset += -scope;
+			startDate = increment(currentDate, chartModel.getTimeUnit(), offset);
+			endDate = increment(startDate, chartModel.getTimeUnit(), scope);
+		}
+		
+		if ( startDate != null && endDate != null )
+		{
+			sql += hasWhere ? " AND " : " WHERE ";
+			sql += category + ">=TRUNC(" + DB.TO_DATE(new Timestamp(startDate.getTime())) + ", '" + unit + "') AND ";
+			sql += category + "<=TRUNC(" + DB.TO_DATE(new Timestamp(endDate.getTime())) + ", '" + unit + "') ";
+		}
+
+		if (sql.indexOf('@') >= 0) {
+			sql = Env.parseContext(Env.getCtx(), 0, sql, false, true);
+		}
+
+		MRole role = MRole.getDefault(Env.getCtx(), false);
+		sql = role.addAccessSQL(sql, null, true, false);
+		
+		if (hasSeries)
+			sql += " GROUP BY " + series + ", " + category + " ORDER BY " + series + ", "  + category;
+		else
+			sql += " GROUP BY " + category + " ORDER BY " + category;
+		
+		log.log(Level.FINE, sql);
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		TimeSeries tseries = null;
+		Dataset dataset = getDataset();
+
+		try
+		{
+			pstmt = DB.prepareStatement(sql, null);
+			rs = pstmt.executeQuery();
+			
+			
+			while(rs.next())
+			{
+				rowcount = rowcount + 1;
+			}
+		}
+		catch (SQLException e)
+		{
+			throw new DBException(e, sql);
+		}
+		finally
+		{
+			DB.close(rs, pstmt);
+			rs = null; pstmt = null;
+		}
+
+		if (tseries != null)
+			((TimeSeriesCollection) dataset).addSeries(tseries);
+		
+		return rowcount;
 	}
 }
