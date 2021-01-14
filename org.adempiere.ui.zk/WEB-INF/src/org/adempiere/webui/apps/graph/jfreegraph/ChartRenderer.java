@@ -118,7 +118,7 @@ import org.zkoss.zul.Imagemap;
 				area.setCoords(entity.getShapeCoords());
 				area.setShape(entity.getShapeType());
 				area.setTooltiptext(entity.getToolTipText());
-				area.setId(count+"_WG__" + seriesName + "__" + key);
+				area.setId(parent.toString().replace(" ","").replace("<","").replace(">","") + count +"_WG__" + seriesName + "__" + key);
 				count++;
 			}
 
