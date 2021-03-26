@@ -741,6 +741,7 @@ public class CalloutOrder extends CalloutEngine
 		Integer M_Product_ID = (Integer)value;
 		if (M_Product_ID == null || M_Product_ID.intValue() == 0)
 			return "";
+		boolean checkStock = MSysConfig.getBooleanValue("CHECK_STOCK_FOR_ORDER", false, Env.getAD_Client_ID(ctx), Env.getAD_Org_ID(ctx));
 		if (steps) log.warning("init");
 		//
 		mTab.setValue("C_Charge_ID", null);
@@ -816,9 +817,9 @@ public class CalloutOrder extends CalloutEngine
 					(M_Warehouse_ID, M_Product_ID.intValue(), M_AttributeSetInstance_ID, null);
 				if (available == null)
 					available = Env.ZERO;
-				if (available.signum() == 0)
+				if (available.signum() == 0 && checkStock)
 					mTab.fireDataStatusEEvent ("NoQtyAvailable", "0", false);
-				else if (available.compareTo(QtyOrdered) < 0)
+				else if (available.compareTo(QtyOrdered) < 0 && checkStock)
 					mTab.fireDataStatusEEvent ("InsufficientQtyAvailable", available.toString(), false);
 				else
 				{
@@ -831,7 +832,7 @@ public class CalloutOrder extends CalloutEngine
 					if (notReserved == null)
 						notReserved = Env.ZERO;
 					BigDecimal total = available.subtract(notReserved);
-					if (total.compareTo(QtyOrdered) < 0)
+					if (total.compareTo(QtyOrdered) < 0 && checkStock)
 					{
 						String info = Msg.parseTranslation(ctx, "@QtyAvailable@=" + available
 							+ " - @QtyNotReserved@=" + notReserved + " = " + total);
@@ -1195,6 +1196,7 @@ public class CalloutOrder extends CalloutEngine
 	{
 		if (isCalloutActive() || value == null)
 			return "";
+		boolean checkStock = MSysConfig.getBooleanValue("CHECK_STOCK_FOR_ORDER", false, Env.getAD_Client_ID(ctx), Env.getAD_Org_ID(ctx));
 		int M_Product_ID = Env.getContextAsInt(ctx, WindowNo, mTab.getTabNo(), "M_Product_ID");
 		if (steps) log.warning("init - M_Product_ID=" + M_Product_ID + " - " );
 		BigDecimal QtyOrdered = Env.ZERO;
@@ -1309,9 +1311,9 @@ public class CalloutOrder extends CalloutEngine
 					(M_Warehouse_ID, M_Product_ID, M_AttributeSetInstance_ID, null);
 				if (available == null)
 					available = Env.ZERO;
-				if (available.signum() == 0)
+				if (available.signum() == 0 && checkStock)
 					mTab.fireDataStatusEEvent ("NoQtyAvailable", "0", false);
-				else if (available.compareTo(QtyOrdered) < 0)
+				else if (available.compareTo(QtyOrdered) < 0 && checkStock)
 					mTab.fireDataStatusEEvent ("InsufficientQtyAvailable", available.toString(), false);
 				else
 				{
@@ -1324,7 +1326,7 @@ public class CalloutOrder extends CalloutEngine
 					if (notReserved == null)
 						notReserved = Env.ZERO;
 					BigDecimal total = available.subtract(notReserved);
-					if (total.compareTo(QtyOrdered) < 0)
+					if (total.compareTo(QtyOrdered) < 0 && checkStock)
 					{
 						StringBuilder msgpts = new StringBuilder("@QtyAvailable@=").append(available)
 								.append("  -  @QtyNotReserved@=").append(notReserved).append("  =  ").append(total);
