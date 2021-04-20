@@ -3053,6 +3053,32 @@ public abstract class AbstractADWindowContent extends AbstractUIPart implements 
 				SessionManager.getAppDesktop().showWindow(form);
 			}
 		}
+		else if(pr.getAD_Window_ID() != 0) {
+			if(!pr.showNewRecord()) {
+				SessionManager.getAppDesktop().openWindow(pr.getAD_Window_ID(), null);
+			}
+			else {
+				MQuery query = new MQuery("");
+        		query.addRestriction("1=2");
+				query.setRecordCount(0);
+
+				SessionManager.getAppDesktop().openWindow(pr.getAD_Window_ID(), query, new Callback<ADWindow>() {
+					
+					@Override
+					public void onCallback(ADWindow result) {
+						if(result == null)
+		    				return;
+		        		
+						result.getADWindowContent().onNew();
+						ADTabpanel adtabpanel = (ADTabpanel) result.getADWindowContent().getADTab().getSelectedTabpanel();
+						adtabpanel.focusToFirstEditor(false);
+					}
+				});					
+			}
+		}
+		else if(pr.getAD_InfoWindow_ID() != 0) {
+			SessionManager.getAppDesktop().openInfo(pr.getAD_InfoWindow_ID());
+		}
 		else
 		{
 			ProcessModalDialog dialog = new ProcessModalDialog(this, curWindowNo, wButton.getProcess_ID(), table_ID, record_ID, startWOasking);

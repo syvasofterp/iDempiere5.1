@@ -472,4 +472,16 @@ public class MProcess extends X_AD_Process
 		return processIt(pi, trx, false);
 	}	//	processItWithoutTrxClose
 	
+	
+	public int getAD_Window_ID() {
+		return get_ValueAsInt("AD_Window_ID");
+	}
+	
+	public boolean showNewRecord() {
+		return get_ValueAsBoolean("ShowNewRecord");
+	}
+	
+	public int getAD_InfoWindow_ID() {
+		return get_ValueAsInt("AD_InfoWindow_ID");
+	}
 }	//	MProcess
