@@ -55,7 +55,8 @@ Export-Package: bsh,
  org.eevolution.model,
  org.idempiere.broadcast,
  org.idempiere.distributed,
- org.idempiere.model
+ org.idempiere.model,
+ org.syvasoft.model
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: com.sun.mail.smtp;version="1.5",
  javax.activation,
