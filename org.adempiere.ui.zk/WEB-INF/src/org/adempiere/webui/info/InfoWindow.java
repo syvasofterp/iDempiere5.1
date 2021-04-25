@@ -98,6 +98,7 @@ import org.zkoss.zul.North;
 import org.zkoss.zul.Separator;
 import org.zkoss.zul.South;
 import org.zkoss.zul.Space;
+import org.zkoss.zul.Timer;
 import org.zkoss.zul.Vbox;
 
 /**
@@ -137,6 +138,9 @@ public class InfoWindow extends InfoPanel implements ValueChangeListener, EventL
 	private Checkbox checkAND;
 	
 	private boolean m_QueryDataOnLoad = false;
+	private int m_AutoRefreshInterval = 0;
+	
+	private Timer timer;
 	
 	/**
 	 * Menu contail process menu item
@@ -185,8 +189,10 @@ public class InfoWindow extends InfoPanel implements ValueChangeListener, EventL
 		this.queryValue = queryValue;
 
 		//Syed on 1/3/2018
-		if(infoWindow != null)
+		if(infoWindow != null) {
 			this.m_QueryDataOnLoad = infoWindow.get_ValueAsBoolean("QueryDataOnLoad");
+			this.m_AutoRefreshInterval = infoWindow.get_ValueAsInt("AutoRefreshInterval");
+		}
 				
    		//Xolali IDEMPIERE-1045
    		contentPanel.addActionListener(new EventListener<Event>() {
@@ -1183,6 +1189,16 @@ public class InfoWindow extends InfoPanel implements ValueChangeListener, EventL
 		southBody.appendChild(new Separator());
 		southBody.appendChild(confirmPanel);
 		southBody.appendChild(statusBar);
+				
+		if(m_AutoRefreshInterval > 0) {
+			timer = new Timer();
+			timer.setDelay(m_AutoRefreshInterval);
+			timer.addEventListener(Events.ON_TIMER, this);
+			timer.setRepeats(true);
+			timer.start();
+			timer.setVisible(false);
+			southBody.appendChild(timer);
+		}
 	}
 
 	protected void insertPagingComponent() {
@@ -1689,6 +1705,8 @@ public class InfoWindow extends InfoPanel implements ValueChangeListener, EventL
     			super.onEvent(event);
     		}
     		
+    	}else if(event.getName().equals(Events.ON_TIMER)) {
+    		onUserQuery();
     	}
     	else
     	{
