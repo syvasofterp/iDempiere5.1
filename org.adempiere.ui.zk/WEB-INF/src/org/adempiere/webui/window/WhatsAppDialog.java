@@ -27,6 +27,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
@@ -411,10 +412,14 @@ public class WhatsAppDialog extends Window implements EventListener<Event>, Valu
 	public void set (MUser from, String to, String subject, String message)
 	{
 		//	Content
-		setFrom(from);
+		//setFrom(from);
+		to = Env.getContext(from.getCtx(), "#WhatsAppPhone");
 		setTo(to);
+		subject = Env.getContext(from.getCtx(), "#WhatsAppMessage"); 
 		setSubject(subject);
-		setMessage(message);
+		
+		
+		//setMessage(message);
 	}	//	set
 
 	/**
@@ -423,6 +428,7 @@ public class WhatsAppDialog extends Window implements EventListener<Event>, Valu
 	public void setTo(String newTo)
 	{
 		m_to = newTo;
+		m_to = m_to.length() <= 10 ? "91" + m_to : m_to;
 		fTo.setText(m_to);
 	}	//	setTo
 
@@ -532,6 +538,8 @@ public class WhatsAppDialog extends Window implements EventListener<Event>, Valu
 		return m_attachment;
 	}	//	getAttachment
 
+	private boolean isError = false;
+	
 	/**************************************************************************
 	 * 	Action Listener - Send Whatsapp
 	 */
@@ -543,6 +551,7 @@ public class WhatsAppDialog extends Window implements EventListener<Event>, Valu
 		else if (event.getTarget().getId().equals(ConfirmPanel.A_OK))
 		{
 			Clients.clearBusy();
+			isError = false;
 			
 			String whatsappapiURLMessage = MSysConfig.getValue("WhatsappAPI") 
 					+ MSysConfig.getValue("WhatsappInstanceId")
@@ -553,13 +562,14 @@ public class WhatsAppDialog extends Window implements EventListener<Event>, Valu
 					 + "/sendFile?token=" + MSysConfig.getValue("WhatsappToken");
 			
 			String body = "data:application/pdf;base64," + getBase64PDFString(); 
+						
+			String phoneNo = fTo.getText();
 			
-			String phoneNo = "919941335361";
 			String fileName = getAttachment().getName();
 			
 			HashMap<String, String> fileMsg = new HashMap<>();						
 			fileMsg.put("filename", fileName);						
-			fileMsg.put("body", body);
+			fileMsg.put("body", URLEncoder.encode(body, "UTF-8" ));
 			fileMsg.put("phone", phoneNo);
 			
 			
@@ -567,59 +577,15 @@ public class WhatsAppDialog extends Window implements EventListener<Event>, Valu
 			
 			HashMap<String, String> textMsg  = new HashMap<>();
 			textMsg.put("phone", phoneNo);
-			textMsg.put("body", fSubject.getText());
+			textMsg.put("body", URLEncoder.encode(fSubject.getText(), "UTF-8" ));
+			if(!isError && !Util.isEmpty(fSubject.getValue()))
+				sendMessage(whatsappapiURLMessage, textMsg);
 			
-			sendMessage(whatsappapiURLMessage, textMsg);
+			if(!isError) {
+				FDialog.info(0, this, "MessageSent");
+				onClose();
+			}
 			
-			FDialog.info(0, this, "MessageSent");
-			onClose();
-			/*
-			if (getTo() == null || getTo().length() == 0)
-			{
-				return;
-			}
-
-			StringTokenizer st = new StringTokenizer(getTo(), ",;", false);
-			String to = st.nextToken();
-			EMail email = m_client.createEMail(getFrom(), to, getSubject(), replaceBASE64Img(getMessage()), true);
-			String status = "Check Setup";
-			if (email != null)
-			{
-				while (st.hasMoreTokens())
-					email.addTo(st.nextToken());
-				// cc
-				StringTokenizer stcc = new StringTokenizer(getCc(), ",;", false);
-				while (stcc.hasMoreTokens())
-				{
-					String cc = stcc.nextToken();
-					if (cc != null && cc.length() > 0)
-                        email.addCc(cc);
-				}
-				//	Attachment
-				for(DataSource ds : attachments)
-				{
-					email.addAttachment(ds);
-				}
-
-				email.setAcknoledgmentReceipt(isAcknowledgmentReceipt.isChecked());
-
-				status = email.send();
-				//
-				if (m_user != null)
-					new MUserMail(m_user, m_user.getAD_User_ID(), email).saveEx();
-				else
-					new MUserMail(Env.getCtx(), email).saveEx();
-				if (email.isSentOK())
-				{
-					FDialog.info(0, this, "MessageSent");
-					onClose();
-				}
-				else
-					FDialog.error(0, this, "MessageNotSent", status);
-			}
-			else
-				FDialog.error(0, this, "MessageNotSent", status);
-				*/
 		}
 		else if (event instanceof UploadEvent)
 		{
@@ -668,6 +634,7 @@ public class WhatsAppDialog extends Window implements EventListener<Event>, Valu
 			conn.setDoInput(true);
 			conn.setUseCaches(false);
 			DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
+			
 			wr.writeBytes(sb.toString());
 			wr.flush();
 			wr.close();
@@ -688,11 +655,19 @@ public class WhatsAppDialog extends Window implements EventListener<Event>, Valu
 			rd.close();
 			conn.disconnect();
 			result=buffer.toString();
+			JSONObject jsonObj = new JSONObject(result);
+			if(!jsonObj.getBoolean("sent")) {
+				isError = true;
+				FDialog.error(0, this, "MessageNotSent", jsonObj.getString("message"));
+			}
 	
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -774,7 +749,7 @@ public class WhatsAppDialog extends Window implements EventListener<Event>, Valu
 				} 
 				else 
 				{
-					addTo(m_user.getEMail(), true);
+					addTo(m_user.getPhone(), true);
 				}
 			}
 		} else {
@@ -797,15 +772,15 @@ public class WhatsAppDialog extends Window implements EventListener<Event>, Valu
         return;
 	}
 	
-	public void addTo(String email, boolean first) {
-		if (Util.isEmpty(email))
+	public void addTo(String phone, boolean first) {
+		if (Util.isEmpty(phone))
 			return;
-		
-		String to = fTo.getValue();
+		phone = phone.length() <= 10 ? "91" + phone : phone;
+		String to = fTo.getValue();		
 		if (!Util.isEmpty(to)) {
-			fTo.setValue(first ? email+","+to : to+","+email);
+			fTo.setValue(phone);
 		} else {
-			fTo.setValue(email);
+			fTo.setValue(phone);
 		}
 	}
 	
