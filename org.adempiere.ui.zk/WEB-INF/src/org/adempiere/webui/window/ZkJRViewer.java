@@ -80,6 +80,7 @@ public class ZkJRViewer extends Window implements EventListener<Event>, ITabOnCl
 	private AMedia media;
 	private String defaultType;
 	private ToolBarButton bSendMail = new ToolBarButton();  // Added by Martin Augustine - Ntier software Services 09/10/2013
+	private ToolBarButton bwhatsApp = new ToolBarButton();  // Added by Syed 08/05/2021
 	private File attachment = null;
 	/**	Logger			*/
 	private static CLogger log = CLogger.getCLogger(ZkJRViewer.class);
@@ -196,6 +197,13 @@ public class ZkJRViewer extends Window implements EventListener<Event>, ITabOnCl
 		toolbar.appendChild(bSendMail);
 		bSendMail.addEventListener(Events.ON_CLICK, this);
 
+		toolbar.appendChild(new Separator("vertical"));
+		bwhatsApp.setName("WhatsApp"); 
+		bwhatsApp.setImage(ThemeManager.getThemeResource("images/Whatsapp.png"));
+		bwhatsApp.setTooltiptext(Util.cleanAmp(Msg.getMsg(Env.getCtx(), "WhatsApp")));
+		toolbar.appendChild(bwhatsApp);
+		bwhatsApp.addEventListener(Events.ON_CLICK, this);
+		
 		North north = new North();
 		layout.appendChild(north);
 		north.appendChild(toolbar);
@@ -244,6 +252,8 @@ public class ZkJRViewer extends Window implements EventListener<Event>, ITabOnCl
 			cmd_render();
 		else if (e.getTarget() == bSendMail)  // Added by Martin Augustine - Ntier software services 09/10/2013
 			cmd_sendMail();
+		else if (e.getTarget() == bwhatsApp)  // Added by Syed
+			cmd_whatsApp();
 	}	//	actionPerformed
 
 	private void cmd_render() {
@@ -276,6 +286,28 @@ public class ZkJRViewer extends Window implements EventListener<Event>, ITabOnCl
 
 	}	//	cmd_sendMail
 
+	// Added by Syed
+	private void cmd_whatsApp()
+	{
+
+		if (attachment == null) {
+			try {
+				attachment = getPDF();
+			} catch (Exception e) {
+				FDialog.error(m_WindowNo, this, e.getLocalizedMessage(), m_title);
+				return;
+			}
+		}
+		String to = "";
+		MUser from = MUser.get(Env.getCtx(), Env.getAD_User_ID(Env.getCtx()));
+		String subject = m_title;
+
+		WhatsAppDialog dialog = new WhatsAppDialog (Msg.getMsg(Env.getCtx(), "WhatsApp"),
+			from, to, subject, "", new FileDataSource(attachment));
+		AEnv.showWindow(dialog);
+
+	}	//	cmd_sendMail
+		
 	public void onEvent(Event event) throws Exception {
 		if (event.getName().equals(Events.ON_CLICK) || event.getName().equals(Events.ON_SELECT)) {
 			actionPerformed(event);
