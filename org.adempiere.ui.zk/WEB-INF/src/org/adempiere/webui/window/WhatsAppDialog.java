@@ -206,6 +206,7 @@ public class WhatsAppDialog extends Window implements EventListener<Event>, Valu
 	private String  m_to;
 	private String  m_cc;
 	private String  m_subject;
+	private String  m_filename;
 	private String  m_message;
 	/**	File to be optionally attached	*/
 	private DataSource	m_attachment;
@@ -221,10 +222,12 @@ public class WhatsAppDialog extends Window implements EventListener<Event>, Valu
 	private WSearchEditor fUser = null;
 	private WSearchEditor fCcUser = null;
 	private Textbox fSubject = new Textbox();//40);
+	private Textbox fFileName = new Textbox();
 	private	Label lFrom = new Label();
 	private Label lTo = new Label();
 	private Label lCc = new Label();
 	private Label lSubject = new Label();
+	private Label lFileName = new Label();
 	private Label lAttachment = new Label();
 	private CKeditor fMessage;
 	private ConfirmPanel confirmPanel = new ConfirmPanel(true);
@@ -258,7 +261,8 @@ public class WhatsAppDialog extends Window implements EventListener<Event>, Valu
 		lFrom.setValue(Msg.getMsg(Env.getCtx(), "From") + ":");
 		lTo.setValue(Msg.getMsg(Env.getCtx(), "To") + ":");
 		lCc.setValue(Msg.getMsg(Env.getCtx(), "Cc") + ":");
-		lSubject.setValue(Msg.getMsg(Env.getCtx(), "Message") + ":");
+		lFileName.setValue(Msg.getMsg(Env.getCtx(), "FileName") + ":");
+		lSubject.setValue(Msg.getMsg(Env.getCtx(), "Message") + ":");		
 		lAttachment.setValue(Msg.getMsg(Env.getCtx(), "Attachment") + ":");
 		fFrom.setReadonly(true);
 		isAcknowledgmentReceipt.setLabel(Msg.getMsg(Env.getCtx(), "RequestReadReceipt"));
@@ -358,9 +362,19 @@ public class WhatsAppDialog extends Window implements EventListener<Event>, Valu
 		rows.appendChild(row);
 		div = new Div();
 		div.setStyle("text-align: right;");
+		div.appendChild(lFileName);
+		row.appendChild(div);
+		fFileName.setRows(1);
+		row.appendChild(fFileName);
+		ZKUpdateUtil.setHflex(fFileName, "1");
+		
+		row = new Row();
+		rows.appendChild(row);
+		div = new Div();
+		div.setStyle("text-align: right;");
 		div.appendChild(lSubject);
 		row.appendChild(div);
-		fSubject.setRows(3);
+		fSubject.setRows(5);
 		row.appendChild(fSubject);
 		ZKUpdateUtil.setHflex(fSubject, "1");
 		
@@ -418,7 +432,8 @@ public class WhatsAppDialog extends Window implements EventListener<Event>, Valu
 		subject = Env.getContext(from.getCtx(), "#WhatsAppMessage"); 
 		setSubject(subject);
 		
-		
+		m_filename = Env.getContext(from.getCtx(), "#FileName");
+		setFileName(m_filename);
 		//setMessage(message);
 	}	//	set
 
@@ -500,6 +515,26 @@ public class WhatsAppDialog extends Window implements EventListener<Event>, Valu
 		m_subject = fSubject.getText();
 		return m_subject;
 	}	//	getSubject
+	
+	/**
+	 *  Set FileName
+	 */
+	public void setFileName(String fileName)
+	{
+		m_filename = fileName;
+		fFileName.setText(m_filename);
+	}	//	setSubject
+
+	/**
+	 *  Get Subject
+	 */
+	public String getFileName()
+	{
+		m_filename = fFileName.getText();
+		if(!m_filename.contains(".pdf"))
+			m_filename = m_filename + ".pdf";
+		return m_filename.replace("/", "-").replace("\\", "-");
+	}	//	getSubject
 
 	/**
 	 *  Set Message
@@ -561,11 +596,17 @@ public class WhatsAppDialog extends Window implements EventListener<Event>, Valu
 					+ MSysConfig.getValue("WhatsappInstanceId")
 					 + "/sendFile?token=" + MSysConfig.getValue("WhatsappToken");
 			
+			
+			if( MSysConfig.getValue("WhatsappAPI") == null ||  MSysConfig.getValue("WhatsappAPI").length() == 0 ) {
+				FDialog.error(0, this, "MessageNotSent", "Please configure WhatsApp API!");
+				return;
+			}
+			
 			String body = "data:application/pdf;base64," + getBase64PDFString(); 
 						
 			String phoneNo = fTo.getText();
 			
-			String fileName = getAttachment().getName();
+			String fileName = getFileName();
 			
 			HashMap<String, String> fileMsg = new HashMap<>();						
 			fileMsg.put("filename", fileName);						
