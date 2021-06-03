@@ -388,8 +388,9 @@ public class WEMailDialog extends Window implements EventListener<Event>, ValueC
 	{
 		//	Content
 		setFrom(from);
+		to = Env.getContext(from.getCtx(), "#EmailAddress");
 		setTo(to);
-		setSubject(subject);
+		setSubject(subject);		 
 		setMessage(message);
 	}	//	set
 
