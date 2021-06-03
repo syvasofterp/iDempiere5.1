@@ -562,10 +562,10 @@ public class MInOutLine extends X_M_InOutLine
 			MLocator locator = MLocator.get(getCtx(), getM_Locator_ID());
 			if (getM_Warehouse_ID() != locator.getM_Warehouse_ID())
 			{
-				throw new WarehouseLocatorConflictException(
-						MWarehouse.get(getCtx(), getM_Warehouse_ID()),
-						locator,
-						getLine());
+				//throw new WarehouseLocatorConflictException(
+				//		MWarehouse.get(getCtx(), getM_Warehouse_ID()),
+				//		locator,
+				//		getLine());
 			}
 
 	        // IDEMPIERE-2668
