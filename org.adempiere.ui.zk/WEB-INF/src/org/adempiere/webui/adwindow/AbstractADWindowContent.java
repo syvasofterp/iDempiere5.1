@@ -93,6 +93,7 @@ import org.compiere.model.MProjectIssue;
 import org.compiere.model.MQuery;
 import org.compiere.model.MRecentItem;
 import org.compiere.model.MRole;
+import org.compiere.model.MSysConfig;
 import org.compiere.model.MWindow;
 import org.compiere.model.PO;
 import org.compiere.model.X_AD_CtxHelp;
@@ -122,6 +123,7 @@ import org.zkoss.zul.Div;
 import org.zkoss.zul.Grid;
 import org.zkoss.zul.Menuitem;
 import org.zkoss.zul.Menupopup;
+import org.zkoss.zul.Timer;
 import org.zkoss.zul.Window.Mode;
 
 /**
@@ -194,6 +196,8 @@ public abstract class AbstractADWindowContent extends AbstractUIPart implements 
 	private int adWindowId;
 
 	private MImage image;
+	
+	private Timer timer;
 
 	/**
 	 * Constructor
@@ -263,6 +267,18 @@ public abstract class AbstractADWindowContent extends AbstractUIPart implements 
         gridWindow = new GridWindow(gWindowVO, true);
         title = gridWindow.getName();
         image = gridWindow.getMImage();
+        
+        //Added by Syed = 03062021 for auto refresh
+        if(title.contains("*")) {
+        	timer = new Timer();
+        	int AutorefreshDelay = MSysConfig.getIntValue("ADWINDOW_AUTO_REFRESH_MS", 60000);
+			timer.setDelay(AutorefreshDelay);
+			timer.addEventListener(Events.ON_TIMER, this);
+			timer.setRepeats(true);
+			timer.start();
+			timer.setVisible(false);
+			toolbar.appendChild(timer);
+        }
     }    
 
     /**
@@ -1177,7 +1193,10 @@ public abstract class AbstractADWindowContent extends AbstractUIPart implements 
     	else if (event.getName().equals(ON_FOCUS_DEFER_EVENT)) {
     		HtmlBasedComponent comp = (HtmlBasedComponent) event.getData();
     		comp.focus();
-    	}    		
+    	}
+    	else if(event.getName().equals(Events.ON_TIMER)) {
+    		onRefresh();
+    	}
     }
 
 	private void setActiveTab(final int newTabIndex, final Callback<Boolean> callback) {
