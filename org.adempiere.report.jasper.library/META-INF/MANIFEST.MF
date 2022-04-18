@@ -104,3 +104,4 @@ Import-Package: bsh,
  org.apache.tools.zip,
  org.apache.xml.serializer;version="2.7.1"
 DynamicImport-Package: *
+Require-Bundle: org.krysalis.barcode4j;bundle-version="2.1.0"
