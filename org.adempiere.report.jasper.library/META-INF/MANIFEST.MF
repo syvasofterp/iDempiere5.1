@@ -12,7 +12,7 @@ Bundle-ClassPath: .,
  lib/js.jar,
  lib/olap4j-0.9.7.309-JS-3.jar,
  lib/spring-beans-2.5.jar,
- lib/spring-core-2.5.jar, 
+ lib/spring-core-2.5.jar,
  lib/xmpcore-5.1.1.jar,
  lib/jasperreports-functions-6.3.1.jar,
  lib/jasperreports-chart-customizers-6.3.1.jar,
@@ -103,5 +103,4 @@ Import-Package: bsh,
  org.apache.tools.zip,
  org.apache.xml.serializer;version="2.7.1"
 DynamicImport-Package: *
-Require-Bundle: org.krysalis.barcode4j;bundle-version="2.1.0",
- org.w3c.dom.svg;bundle-version="1.1.0"
+Require-Bundle: org.krysalis.barcode4j;bundle-version="2.1.0"
