@@ -76,6 +76,7 @@ public class StatementProxy implements InvocationHandler {
 				String sql = (String)args[0];
 				p_vo.setSql(DB.getDatabase().convertStatement(sql));
 				args[0] = p_vo.getSql();
+				System.out.println(args[0]);
 			}
 		} else if (name.equals("close") && (args == null || args.length == 0)) {
 			close();
