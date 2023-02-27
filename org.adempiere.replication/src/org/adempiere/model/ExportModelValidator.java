@@ -168,6 +168,19 @@ public class ExportModelValidator implements ModelValidator {
 						|| type == TYPE_BEFORE_DELETE) {
 					X_AD_ReplicationTable replicationTable = MReplicationStrategy.getReplicationTable(
 							po.getCtx(), rsID, po.get_Table_ID());
+					//get delete,update,create boolean variables to enable the export records
+					boolean isCreate = replicationTable.get_ValueAsBoolean("IsCreate");
+					boolean isUpdate = replicationTable.get_ValueAsBoolean("IsUpdate");
+					boolean isDelete = replicationTable.get_ValueAsBoolean("IsDelete");
+					if(type == TYPE_AFTER_NEW && !isCreate)
+						return null;
+					
+					if(type == TYPE_AFTER_CHANGE && !isUpdate)
+						return null;
+					
+					if(type == TYPE_BEFORE_DELETE && !isDelete)
+						return null;
+					
 					if (replicationTable != null) {
 						expHelper.exportRecord(
 								po,
