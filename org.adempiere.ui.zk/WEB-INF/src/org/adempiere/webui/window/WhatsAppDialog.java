@@ -669,6 +669,8 @@ public class WhatsAppDialog extends Window implements EventListener<Event>, Valu
 			URL url = new URL(apiUrl);				
 			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 			conn.setRequestMethod("POST");				
+			conn.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:221.0) Gecko/20100101 Firefox/31.0");			
+			conn.setRequestProperty("Accept", "application/json");
 			//conn.addRequestProperty("Content-Type", "application/json; utf-8");
 			//conn.setRequestProperty("Accept", "application/json");
 			conn.setDoOutput(true);
