@@ -432,6 +432,7 @@ public class ImportHelper {
 	 */
 	private void setReplicaValues(Object value,MEXPFormatLine line,PO po,StringBuffer result)throws Exception
 	{
+		System.out.println("Column: "+ line.getValue() + "  -   Value:" + value.toString());
 		MColumn column = MColumn.get(ctx, line.getAD_Column_ID());
 		if (log.isLoggable(Level.INFO)) log.info("column=[" + column + "]");
 		

@@ -253,6 +253,7 @@ public class ExportHelper {
 			if ( formatLine.getType().equals(X_EXP_FormatLine.TYPE_XMLElement) ) {
 				// process single XML Attribute
 				// Create new element
+				System.out.println(formatLine.getEXP_Format().getName() + " > " + formatLine.getValue());
 				Element newElement = outDocument.createElement(formatLine.getValue());
 				if (log.isLoggable(Level.INFO)) log.info("Format Line Seach key: "+ formatLine.getValue());
 				if (formatLine.getAD_Column_ID() == 0) {
